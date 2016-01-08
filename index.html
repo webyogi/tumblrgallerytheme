@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{Title}</title>
+	<meta name="description" content="{Description}" />
+	<link rel="shortcut icon" href="{Favicon}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+	<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://static.tumblr.com/ojdfmaf/8SCnyt75d/animate.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
+	 <style type="text/css">
+	 /* Index Custom Styles */
+	
+	{block:IndexPage}
+		ol.tumbposts li{
+			float:left;
+			overflow:hidden;
+			padding:10px;
+		}
+		.grid-3 div{width:50%;float:left;}
+		.grid-3 div:first-child{width:100%;}
+		.grid-3{background:#fff;}
+	{/block:IndexPage}
+
+	/* Permalink Custom Styles */
+ 
+	{block:PermalinkPage}
+		ol.tumbposts li{
+			float:none;
+			overflow:hidden;
+			padding:10px;
+		}
+	{/block:PermalinkPage}
+	 {CustomCSS}
+	 </style>
+	 </head>
+<body class="{TagsAsClasses} animated fadeIn  {block:PermalinkPage}inner{/block:PermalinkPage}">
+
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+
+    <!-- header -->
+    <header class="aum">
+        <!-- Start the Navigation -->
+		<nav class="navbar navbar-custom " role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="/">
+                        {Title}
+                    </a>
+                </div>
+
+                
+                <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                    <ul class="nav navbar-nav">
+
+                        <li>
+                            <a href="{BlogURL}">Home</a>
+                        </li>
+                        {block:HasPages}
+						{block:Pages}
+                        <li>
+                            <a href="{URL}">{Label}</a>
+                        </li>
+                        {/block:Pages}
+						{/block:HasPages}
+                       {block:AskEnabled} <li>
+                            <a href="/ask">Ask Anything</a>
+                        </li>
+                        {/block:AskEnabled}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>	
+    </header>
+	
+    <div class="container"><hr></div>
+
+    <!-- content -->
+    <section class="main">
+        <div class="container grid-custom">
+
+            <ol class="tumbposts">
+                {block:IndexPage}
+				<!-- Twitter Update Container -->
+                <li class="post col-md-6 col-sm-6 twitterhandle">
+                    <div class="information">{Description} {block:Twitter}
+                        <div id="twitter" style="display:none;">
+                            <div id="tweets"></div>
+                        </div>
+
+                        <script type="text/javascript">
+                            function recent_tweets(data) {
+                                for (i = 0; i < 1; i++) {
+                                    document.getElementById("tweets").innerHTML =
+                                        document.getElementById("tweets").innerHTML +
+                                        '<a href="http://twitter.com/{TwitterUsername}/status/' +
+                                        (data[i].id_str ? data[i].id_str : data[i].id) +
+                                        '"><div class="content"><i class="fa fa-twitter pull-left"></i> ' + data[i].text +
+                                        '</div></a>';
+                                }
+                                document.getElementById("twitter").style.display = 'block';
+                            }
+                        </script>
+                        {/block:Twitter}
+
+                    </div>
+                </li>
+                {/block:IndexPage} 
+				
+				<!-- Start Posts -->
+				{block:Posts} 
+				
+				{block:Text}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage}">
+                    <div class="text wrap">
+                        {block:Title}
+                        <h3><a href="{Permalink}">{Title}</a></h3> {/block:Title}{Body}
+                    </div>
+                </li>
+                {/block:Text}
+				
+				{block:Photo}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} photo">
+                    <div class="wrap">
+                        
+						{block:IndexPage}
+                       <a href="{Permalink}"><img src="{PhotoURL-500}" alt="{PhotoAlt}" /></a>
+                        <div class="photoinfo">
+                            <div>
+                                {TimeAgo}
+                            </div>
+                        </div>
+
+                        {/block:IndexPage}
+						
+						{block:PermalinkPage}
+                        <center>
+						<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
+                        </center>
+                        <div class="innerphotoinfo text-center">
+                            <div>
+                                <br>
+                                <br> {Caption}
+                                <br> 
+								{block:Exif}
+                                <small>
+									{block:Camera}<span>Camera :</span> {Camera}{/block:Camera}
+									{block:FocalLength}<span>Focal Length :</span> {FocalLength}{block:FocalLength}
+									{block:Aperture}<span>Aperture :</span> {Aperture}{/block:Aperture}</span>
+									{block:Exposure}<span>Exposure :</span> {Exposure}{/block:Exposure} <br>
+								</small> 
+							{/block:Exif}
+                            </div>
+                        </div>
+                        {/block:PermalinkPage}
+                    </div>
+                </li>
+                {/block:Photo}
+				
+				{block:Panorama}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} panorama">
+                    {LinkOpenTag}
+                    <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}" /> {LinkCloseTag}
+					
+					{block:Caption}
+                    <div class="caption">{Caption}</div>
+                    {/block:Caption}
+                </li>
+                {/block:Panorama}
+				
+				
+				{block:Photoset}
+                <li class="post text-center  {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} photoset">
+                    <a href="{Permalink}">
+                        <div class="{block:IndexPage}wrap{/block:IndexPage} grid-{PhotoCount} {PhotosetLayout}" data-id="photoset{PostID}">
+                            {block:Photos}
+                            <div>
+                                {block:IndexPage}<img src="{PhotoURL-500}" {block:HighRes}data-highres="{PhotoURL-HighRes}" {/block:HighRes} width="{PhotoWidth-500}" height="{PhotoHeight-500}" {block:Caption}alt="{Caption}" {/block:caption} />{/block:IndexPage} {block:PermalinkPage}
+
+                                <img src="{PhotoURL-HighRes}" {block:HighRes}data-highres="{PhotoURL-HighRes}" {/block:HighRes} {block:Caption}alt="{Caption}" {/block:caption} />{/block:PermalinkPage}
+                            </div>
+                            {/block:Photos}
+                            <div class="clearfix"></div>
+                            {block:Caption}
+                            <span class="caption">{Caption}</span> {/block:caption}
+                        </div>
+                    </a>
+                </li>
+                {/block:Photoset}
+				
+				{block:Quote}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage}">
+                    <div class="quote">
+                        <a href="{Permalink}">
+                            <div class="kowt text-center">
+                                <br>
+                                <div><i class="fa fa-quote-left"></i>
+                                </div>
+                                "{Quote}"</div>
+
+                            {block:Source}
+                            <div class="source">{Source}</div>
+                            {/block:Source}
+                        </a>
+                    </div>
+                </li>
+                {/block:Quote}
+				
+				{block:Link}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} link">{block:Thumbnail}
+					<a href="{URL}" class="link" target="_blank">
+					<img src="{Thumbnail-HighRes}"></a>
+					{/block:Thumbnail}
+					<div class="wrap">
+						<a href="{URL}" class="link" target="_blank">
+                    <i class="fa fa-external-link-square"></i> {Name}
+                    </a>
+                    
+                    {block:Description}<hr>
+                    <div class="description">{Description}</div>
+                    {/block:Description}
+					</div>
+                </li>
+                {/block:Link}
+				
+				{block:Chat}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} chat">
+					<div class="wrap">
+                    {block:Title}
+                    <h3><a href="{Permalink}">{Title}</a></h3> {/block:Title}
+
+                    <ul class="chat">
+                        {block:Lines}
+                        <li class="{Alt} user_{UserNumber}">
+                            {block:Label}
+                            <span class="label">{Label}</span> {/block:Label}{Line}
+                        </li>
+                        {/block:Lines}
+                    </ul>
+					</div>
+                </li>
+                {/block:Chat}
+				
+				{block:Video}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage} video">
+                    <div class="wrap">
+                        <figure {block:Caption}class="with-caption" {/block:Caption}>
+                            <div class="video-wrapper">
+                                {VideoEmbed-700}
+                            </div>
+                            {block:Caption}
+                            <figcaption class="post-description clearfix">
+                                {Caption}
+                            </figcaption>
+                            {/block:Caption}
+                        </figure>
+
+                    </div>
+                </li>
+                {/block:Video}
+				
+				{block:Audio}
+                <li class="post {block:IndexPage}col-md-3 col-sm-6{/block:IndexPage}">
+                    <div class="audio"> {AudioEmbed}{block:Caption}
+                        <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </div>
+                </li>
+                {/block:Audio}
+				<!-- {PostType} ID Number {PostID} -->
+				
+				{block:PermalinkPage}
+                <center>
+                    <div class="row"></div>
+                    <br>
+                    <br>
+                    <div class="fb-like" data-href="{Permalink}" data-layout="standard" data-action="like" data-show-faces="false" colorscheme="dark" data-share="true"></div>
+				</div>
+				</center>
+				{/block:PermalinkPage}
+		
+		{/block:Posts}
+        </ol>
+        
+		
+		<div class="clearfix"></div>
+        <br>
+        <br>
+		
+		
+        <footer>
+            {block:Pagination}
+            <div class="page">
+                <center>{block:PreviousPage}
+                    <a href="{PreviousPage}">Previous</a> {/block:PreviousPage}{block:JumpPagination length="5"}{block:CurrentPage}
+                    <span class="current_page">{PageNumber}</span> {/block:CurrentPage}{block:JumpPage}
+                    <a class="jump_page" href="{URL}">{PageNumber}</a> {/block:JumpPage}{/block:JumpPagination}{block:NextPage}
+                    <a href="{NextPage}">Next</a> {/block:NextPage}
+                </center>
+            </div>{/block:Pagination}
+
+            <br> {block:PermalinkPagination}
+            <div class="container">
+                {block:PreviousPost}
+                <div class="col-xs-6"><a href="{PreviousPost}">Previous Post</a>
+                </div>
+                {/block:PreviousPost} {block:NextPost}
+                <div class="col-xs-6 text-right"> <a href="{NextPost}">Next Post</a> </div>
+                {/block:NextPost}
+            </div>
+            <div class="clearfix"></div>
+            {/block:PermalinkPagination}
+        </footer>
+		
+		
+        <div class="clearfix"></div>
+        <div class="container">
+            <br>
+            <hr>
+            <br>
+            <center>All Rights Reserved. {Title}.
+                <br> Photography Theme design by : <a href="http://webyogi.tumblr.com">The Web Yogi</a>
+                <br>Powered by Tumblr.</center>
+        </div>
+        </div>
+		
+    </section>
+
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script type='text/javascript' src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	
+    {block:IndexPage}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+    <script src="http://static.tumblr.com/ojdfmaf/A2onxqfp8/imagesloaded.pkgd.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // init Isotope
+            isotope = $('.tumbposts').isotope({
+                itemSelector: '.post',
+                percentPosition: true,
+                resizable: true,
+                masonry: {
+                    // use element for option
+                    columnWidth: '.col-md-3'
+                }
+            });
+            isotope.imagesLoaded().progress(function() {
+                isotope.isotope('layout');
+                $(".grid-custom").addClass("nobg");
+                $(".tumbposts").show();
+                $("footer").fadeIn();
+            });
+        });
+    </script>
+    {/block:IndexPage} 
+	
+	{block:PermalinkPage}
+    <script>
+        $(window).load(function() {
+            $(".grid-custom").addClass("nobg");
+            $(".tumbposts").fadeIn();
+            $("footer").fadeIn();
+        });
+    </script>
+    {/block:PermalinkPage}
+	
+	{block:Twitter}
+    <script type="text/javascript" src="/tweets.js"></script>
+    {/block:Twitter}
+	
+    <script>
+        var iframes = document.getElementsByTagName('iframe');
+        for (var i = 0; i < iframes.length; ++i) {
+            var iframe = iframes[i];
+            var players = /soundcloud.com/;
+            if (iframe.src.search(players) !== -1) iframe.width = '100%';
+        }
+        var videoWrappers = document.getElementsByClassName('video-wrapper');
+        [].forEach.call(videoWrappers, function(el, i) {
+            var width = el.getElementsByTagName('iframe')[0].width,
+                height = el.getElementsByTagName('iframe')[0].height;
+            el.style.paddingBottom = height / width * 100 + '%';
+        });
+    </script>
+</body>
+
+</html>
